@@ -100,7 +100,9 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 20 * * *" # Runs daily at 8 PM UTC
+    # - cron: "0 20 * * *" # Runs daily at 8 PM UTC
+    - cron: "30 16 * * *" # Runs at 4:30 PM UTC
+    - cron: "30 20 * * *" # Runs at 8:30 PM UTC
 
 jobs:
   automate_testcase:
