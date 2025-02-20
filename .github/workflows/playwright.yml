@@ -103,7 +103,7 @@ on:
     - cron: "0 20 * * *" # Runs daily at 8 PM UTC
 
 jobs:
-  test:
+  automate_testcase:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
