@@ -93,40 +93,61 @@
 #           name: playwright-report
 #           path: playwright-report/
 
-name: Playwright Tests
+name: Playwright CI Pipeline
 
+# Trigger the workflow on push or pull request to the main branch
 on:
   push:
     branches:
-      - main # Adjust this to your default branch (e.g., 'master', 'develop', etc.)
-    paths:
-      - "**" # Run on changes to any file in the repository
-  schedule:
-    # - cron: "0 20 * * *" # Runs daily at 8 PM UTC
-    - cron: "30 16 * * *" # Runs at 4:30 PM UTC
-    - cron: "30 20 * * *" # Runs at 8:30 PM UTC
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  automate_testcase:
+  test:
     runs-on: ubuntu-latest
+
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      # Step 2: Cache Node.js dependencies
+      - name: Cache Node.js Modules
+        id: cache-node-modules
+        uses: actions/cache@v3
         with:
-          node-version: 18
+          path: node_modules
+          key: npm-cache-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-cache-
 
+      # Step 3: Install dependencies if not cached
       - name: Install Dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
 
+      # Step 4: Cache Playwright browsers
+      - name: Cache Playwright Browsers
+        id: cache-playwright
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('playwright.config.ts') }}
+          restore-keys: |
+            playwright-browsers-${{ runner.os }}-
+
+      # Step 5: Install Playwright browsers if not cached
       - name: Install Playwright Browsers
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
 
+      # Step 6: Run Playwright tests
       - name: Run Playwright Tests
         run: npx playwright test
 
+      # Step 7: Upload Playwright HTML Report as an artifact
       - name: Upload Playwright HTML Report
         uses: actions/upload-artifact@v4
         with:
