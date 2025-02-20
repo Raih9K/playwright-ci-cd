@@ -24,8 +24,8 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list'], // List reporter for terminal output
-    ['html'], // HTML reporter for visual reports
-    ['allure-playwright', { outputFolder: 'test-results/allure-results' }] // Allure reporter
+    ['html'] // HTML reporter for visual reports
+    // ['allure-playwright', { outputFolder: 'test-results/allure-results' }] // Allure reporter
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -78,3 +78,5 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
+
+
