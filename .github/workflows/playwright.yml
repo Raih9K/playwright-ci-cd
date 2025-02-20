@@ -1,37 +1,50 @@
 name: Playwright Tests
 
+# Trigger the workflow on a schedule and on push events
 on:
   schedule:
     - cron: "0 20 * * *" # Runs daily at 8 PM UTC
+  push:
+    branches:
+      - main # Adjust this to your default branch (e.g., 'master', 'develop', etc.)
+    paths:
+      - "e2e/**" # Run on changes to any file in the repository
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
+      # Step 3: Install dependencies
       - name: Install Dependencies
         run: npm ci
 
+      # Step 4: Install Playwright browsers
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      # Step 5: Run Playwright tests
       - name: Run Playwright Tests
         run: npx playwright test
 
+      # Step 6: Generate Allure Report
       - name: Generate Allure Report
         run: |
-          npm install -g allure-commandline --save-dev
-          npx allure generate allure-results --clean -o allure-report
+          npm install allure-commandline --save-dev
+          npx allure generate test-results/allure-results --clean -o test-results/allure-report
 
+      # Step 7: Upload Allure Report as an artifact
       - name: Upload Allure Report
         uses: actions/upload-artifact@v3
         with:
           name: allure-report
-          path: allure-report
+          path: test-results/allure-report/
