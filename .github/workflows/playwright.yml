@@ -98,7 +98,9 @@ name: Playwright Tests
 on:
   push:
     branches:
-      - main
+      - main # Adjust this to your default branch (e.g., 'master', 'develop', etc.)
+    paths:
+      - "**" # Run on changes to any file in the repository
   schedule:
     # - cron: "0 20 * * *" # Runs daily at 8 PM UTC
     - cron: "30 16 * * *" # Runs at 4:30 PM UTC
