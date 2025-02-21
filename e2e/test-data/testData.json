@@ -1,0 +1,11 @@
+{
+    "validLogin": {
+      "email": "admin@myqbits.com",
+      "password": "123"
+    },
+    "invalidLogin": {
+      "email": "invalid@myqbits.com",
+      "password": "wrongpass"
+    }
+  }
+  
