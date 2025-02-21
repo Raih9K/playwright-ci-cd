@@ -4,15 +4,10 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "src/**"
-      - "e2e/**"
   pull_request:
     branches:
       - main
-    paths:
-      - "src/**"
-      - "e2e/**"
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -47,8 +42,21 @@ jobs:
         if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
 
+      - name: Check If Tests Should Run
+        id: check-tests
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -qE '^tests/|^src/'; then
+            echo "RUN_TESTS=true" >> $GITHUB_ENV
+          else
+            echo "RUN_TESTS=false" >> $GITHUB_ENV
+          fi
+
       - name: Run Playwright Tests
-        run: npx playwright test --workers=4
+        if: env.RUN_TESTS == 'true'
+        run: npx playwright test --shard=${{ strategy.job-index }}/3
+        strategy:
+          matrix:
+            shard: [1, 2, 3]
 
       - name: Upload Playwright HTML Report
         uses: actions/upload-artifact@v4
