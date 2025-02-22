@@ -6,6 +6,11 @@
     "invalidLogin": {
       "email": "invalid@myqbits.com",
       "password": "wrongpass"
+    },
+    "skd": {
+      "skdtypename": "TestSKD",
+      "skdName": "TestSKD",
+      "skdDescription": "TestSKD"
     }
   }
   
