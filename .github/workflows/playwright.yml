@@ -1,4 +1,4 @@
-name: Playwright CI Pipeline
+name: Automation tests
 
 on:
   push:
