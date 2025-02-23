@@ -7,10 +7,19 @@
       "email": "invalid@myqbits.com",
       "password": "wrongpass"
     },
-    "skd": {
+    "blankLogin": {
+      "email": "",
+      "password": ""
+    },
+    "skdType": {
       "skdtypename": "TestSKD",
+      "skdtypeDescription": "TestSKD"
+    },
+    "skd": {
       "skdName": "TestSKD",
       "skdDescription": "TestSKD"
+    },
+    "skdVerify": {
+      "verifyDescription": "TestSKD"
     }
-  }
-  
+}

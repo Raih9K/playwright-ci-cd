@@ -1,8 +1,7 @@
 import { test, expect } from '@playwright/test';
 import testData from '../test-data/testData.json';
 
-test.describe('SKD Workflow Tests', () => {
-  
+test.describe.serial('SKD Workflow Tests', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://admin.dev.myqbits.com/');
     await page.getByRole('textbox', { name: 'Enter your email or phone' }).fill(testData.validLogin.email);
@@ -11,7 +10,7 @@ test.describe('SKD Workflow Tests', () => {
     await expect(page.getByRole('alert')).toContainText("You're successfully logged in!");
   });
 
-  test('Create and Update SKD Type', async ({ page }) => {
+  test('Create SKD Type', async ({ page }) => {
     await page.getByRole('link', { name: 'Skds' }).click();
     await page.locator('a').filter({ hasText: 'Type List' }).click();
     await page.getByRole('link', { name: 'Create SKD Type' }).click();

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import testData from '../test-data/testData.json';
 
-test.describe('Login Tests', () => {
+test.describe.serial('Login Tests', () => {
     
     test('Negative Test - Invalid Credentials', async ({ page }) => {
         const { email, password } = testData.invalidLogin;
