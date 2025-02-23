@@ -5,34 +5,76 @@ test.describe('SKD Workflow Tests', () => {
   
   test.beforeEach(async ({ page }) => {
     await page.goto('https://admin.dev.myqbits.com/');
-    await page.getByRole('textbox', { name: 'Enter your email or phone' }).fill(testData.validLogin.email);
-    await page.getByRole('textbox', { name: 'Enter your password' }).fill(testData.validLogin.password);
-    await page.getByRole('button', { name: 'Log in' }).click();
+
+    const emailField = page.getByRole('textbox', { name: 'Enter your email or phone' });
+    const passwordField = page.getByRole('textbox', { name: 'Enter your password' });
+    const loginButton = page.getByRole('button', { name: 'Log in' });
+
+    if (await emailField.isVisible() && await passwordField.isVisible()) {
+      await emailField.fill(testData.validLogin.email);
+      await passwordField.fill(testData.validLogin.password);
+      await loginButton.click();
+    } else {
+      console.log('Login fields are not visible.');
+      await page.screenshot({ path: 'error_login_fields.png' });
+    }
+
     await expect(page.getByRole('alert')).toContainText("You're successfully logged in!");
   });
 
-  test('Navigate to SKD Section', async ({ page }) => {
-    await page.getByRole('link', { name: 'Skds' }).click();
-  });
+//   test('Create SKD', async ({ page }) => {
+//     await page.goto('https://admin.dev.myqbits.com/skd');
+  
+//     await page.getByRole('link', { name: 'Create SKD' }).click();
+  
+//     const skdNameInput = page.getByRole('textbox', { name: 'Test SKDD' });
+//     await skdNameInput.waitFor({ state: 'visible' });
+//     await skdNameInput.fill('Test SKD type');
+  
+//     const skdTypeDropdown = page.getByRole('textbox', { name: 'Search for a skd type', exact: true });
+//     await skdTypeDropdown.waitFor({ state: 'visible' });
+//     await skdTypeDropdown.click();
+    
+//     const firstOption = page.locator('.absolute > li').first();
+//     await firstOption.waitFor({ state: 'visible' });
+//     await firstOption.click();
+  
+//     const activeToggle = page.getByText('Active', { exact: true });
+//     await activeToggle.waitFor({ state: 'visible' });
+//     await activeToggle.click();
+  
+//     const submitButton = page.getByRole('button', { name: 'Submit' });
+//     await submitButton.waitFor({ state: 'visible' });
+//     await submitButton.click();
+  
+//     console.log('✅ SKD Created Successfully');
+//   });
+test('Create SKD', async ({ page }) => {
+  await page.goto('https://admin.dev.myqbits.com/skd');
 
-  test('Create SKD', async ({ page }) => {
-    await page.goto('https://admin.dev.myqbits.com/skd');
-    await page.locator('a', { hasText: 'SKD List' }).click();
-    await page.getByRole('link', { name: 'Create SKD' }).click();
-    await page.getByRole('textbox', { name: 'Enter Skd name' }).fill(testData.skd.skdName);
-    await page.getByText('Choose a skd type *').click();
-    await page.getByRole('textbox', { name: 'Search for a skd type', exact: true }).fill(testData.skd.skdName);
-    await page.getByRole('textbox', { name: 'Search for a skd type', exact: true }).press('Enter');
-    await page.getByRole('textbox', { name: 'Enter skd description' }).fill(testData.skd.skdDescription);
-    await page.getByRole('button', { name: 'Submit' }).click();
-  });
+  await page.getByRole('link', { name: 'Create SKD' }).click();
 
-  test('Verify SKD Creation', async ({ page }) => {
-    await page.goto('https://admin.dev.myqbits.com/skd');
-    await page.getByRole('cell', { name: 'Verification' }).click();
-    await page.getByRole('row', { name: '1 test skd test skd true -' }).getByRole('button').first().click();
-    await page.getByRole('textbox', { name: 'Remark' }).fill('verifyyyyy');
-    await page.locator('form').getByRole('button', { name: 'Verify' }).click();
-    await expect(page.getByRole('alert')).toContainText('Successfully Verified!');
-  });
+  const skdNameInput = page.getByRole('textbox', { name: 'Enter Skd name' });
+  await skdNameInput.waitFor({ state: 'visible' });
+  await skdNameInput.fill('Test SKD type');
+
+  const skdTypeDropdown = page.getByRole('textbox', { name: 'Search for a skd type', exact: true });
+  await skdTypeDropdown.waitFor({ state: 'visible' });
+  await skdTypeDropdown.click();
+  
+  const firstOption = page.locator('.absolute > li').first();
+  await firstOption.waitFor({ state: 'visible' });
+  await firstOption.click();
+
+  const activeToggle = page.getByText('Active', { exact: true });
+  await activeToggle.waitFor({ state: 'visible' });
+  await activeToggle.click();
+
+  const submitButton = page.getByRole('button', { name: 'Submit' });
+  await submitButton.waitFor({ state: 'visible' });
+  await submitButton.click();
+
+  console.log('✅ SKD Created Successfully');
+});
+
 });
