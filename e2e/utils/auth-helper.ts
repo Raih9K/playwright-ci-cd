@@ -8,6 +8,7 @@ import testData from '../test-data/testData.json';
  * @param password - User password (defaults to valid login from testData)
  * @returns Promise that resolves when login is complete
  */
+
 export async function loginUser(
     page: Page,
     email: string = testData.validLogin.email,
