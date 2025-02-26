@@ -1,6 +1,4 @@
 {
-  "testServer": "https://admin.dev.myqbits.com/",
-
   "validLogin": {
     "email": "admin@myqbits.com",
     "password": "123"
@@ -15,13 +13,14 @@
   },
   "skdType": {
     "skdtypename": "TestSKD",
-    "skdtypeDescription": "TestSKD"
+    "skdtypeDescription": "TestSKD",
+    "barcodePrefix": "TEST"
   },
   "skd": {
     "skdName": "TestSKD",
     "skdDescription": "TestSKD"
   },
   "skdVerify": {
-    "verifyDescription": "TestSKD"
+    "verifyDescription": "Verified during automated testing"
   }
 }

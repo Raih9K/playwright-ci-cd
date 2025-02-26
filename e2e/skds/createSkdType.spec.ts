@@ -1,30 +1,31 @@
 import { test, expect } from '@playwright/test';
+import { loginUser } from '../utils/auth-helper';
 import testData from '../test-data/testData.json';
 
-test.describe.serial('SKD Workflow Tests', () => {
+test.describe('SKD Type Workflow Tests', () => {
   test.beforeEach(async ({ page }) => {
-    // await page.goto('https://admin.dev.myqbits.com/');
-    await page.goto(testData.testServer); //redirect login page
-    await page.getByRole('textbox', { name: 'Enter your email or phone' }).fill(testData.validLogin.email);
-    await page.getByRole('textbox', { name: 'Enter your password' }).fill(testData.validLogin.password);
-    await page.getByRole('button', { name: 'Log in' }).click();
-    await expect(page.getByRole('alert')).toContainText("You're successfully logged in!");
+    await loginUser(page);
   });
 
   test('Create SKD Type', async ({ page }) => {
+    // Navigation to SKD Type creation
     await page.getByRole('link', { name: 'Skds' }).click();
     await page.locator('a').filter({ hasText: 'Type List' }).click();
     await page.getByRole('link', { name: 'Create SKD Type' }).click();
     
+    // Verify page title
     await expect(page.locator('h2')).toContainText('Create SKD Type');
     
-    await page.getByRole('textbox', { name: 'Enter skd type name' }).fill('Test SKD type');
+    // Fill form with data from testData
+    await page.getByRole('textbox', { name: 'Enter skd type name' }).fill(testData.skdType.skdtypename);
     await page.getByRole('radio', { name: 'True' }).check();
-    await page.getByRole('textbox', { name: 'Enter barcode prefix' }).fill('Test');
+    await page.getByRole('textbox', { name: 'Enter barcode prefix' }).fill(testData.skdType.skdtypeDescription);
     await page.getByRole('radio', { name: 'Active', exact: true }).check();
+    
+    // Submit the form
     await page.getByRole('button', { name: 'Submit' }).click();
     
-    // Wait for confirmation
+    // Verify success message
     await expect(page.getByRole('alert')).toContainText('Skd type successfully created.');
   });
 });
