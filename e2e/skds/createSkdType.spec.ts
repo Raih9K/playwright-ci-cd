@@ -3,7 +3,8 @@ import testData from '../test-data/testData.json';
 
 test.describe.serial('SKD Workflow Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://admin.dev.myqbits.com/');
+    // await page.goto('https://admin.dev.myqbits.com/');
+    await page.goto(testData.testServer); //redirect login page
     await page.getByRole('textbox', { name: 'Enter your email or phone' }).fill(testData.validLogin.email);
     await page.getByRole('textbox', { name: 'Enter your password' }).fill(testData.validLogin.password);
     await page.getByRole('button', { name: 'Log in' }).click();
