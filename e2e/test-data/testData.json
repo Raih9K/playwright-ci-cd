@@ -1,25 +1,27 @@
 {
-    "validLogin": {
-      "email": "admin@myqbits.com",
-      "password": "123"
-    },
-    "invalidLogin": {
-      "email": "invalid@myqbits.com",
-      "password": "wrongpass"
-    },
-    "blankLogin": {
-      "email": "",
-      "password": ""
-    },
-    "skdType": {
-      "skdtypename": "TestSKD",
-      "skdtypeDescription": "TestSKD"
-    },
-    "skd": {
-      "skdName": "TestSKD",
-      "skdDescription": "TestSKD"
-    },
-    "skdVerify": {
-      "verifyDescription": "TestSKD"
-    }
+  "testServer": "https://admin.dev.myqbits.com/",
+
+  "validLogin": {
+    "email": "admin@myqbits.com",
+    "password": "123"
+  },
+  "invalidLogin": {
+    "email": "invalid@myqbits.com",
+    "password": "wrongpass"
+  },
+  "blankLogin": {
+    "email": "",
+    "password": ""
+  },
+  "skdType": {
+    "skdtypename": "TestSKD",
+    "skdtypeDescription": "TestSKD"
+  },
+  "skd": {
+    "skdName": "TestSKD",
+    "skdDescription": "TestSKD"
+  },
+  "skdVerify": {
+    "verifyDescription": "TestSKD"
+  }
 }
