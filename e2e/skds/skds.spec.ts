@@ -16,8 +16,6 @@ test.describe('SKD Workflow Tests', () => {
     await page.getByRole('textbox', { name: 'Enter your password' }).click();
     await page.getByRole('textbox', { name: 'Enter your password' }).fill('123');
     await page.getByRole('button', { name: 'Log in' }).click();
-    await page.getByRole('button', { name: 'Log in' }).click();
-    
   });
   test('TC : 2', async ({ page }) => {
     await page.goto('https://admin.dev.myqbits.com/');
