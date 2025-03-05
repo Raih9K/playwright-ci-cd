@@ -34,7 +34,7 @@ test.describe.serial('SKD Verification : Failed', () => {
         await page.screenshot({ path: `screenshots/${rowName.replace(/\s/g, '_')}.png`, fullPage: true });
       }
     };
-    // 🔥 Calling function for specific SKD items
+    // Calling function for specific SKD items
     await verifySKD('1 Test SKD Test SKD Type true');
   });
 });
