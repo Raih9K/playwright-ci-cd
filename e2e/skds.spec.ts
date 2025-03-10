@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import testData from '../test-data/testData.json';
+// import testData from 'test-data/testData';
 test.describe.serial('SKD Verification', () => {
   test('Verify SKD', async ({ page }) => {
     await page.getByRole('link', { name: 'Skds' }).click();
